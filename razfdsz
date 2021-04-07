@@ -1,77 +1,34 @@
-#include <iostream>
-#include <conio.h>
-#include<Windows.h>
-
-using namespace std;
-
-const int Alph = 32;
-
-const char lett[] = {'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л',
- 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ь', 'Ы', 'Э', 'Ю', 'Я'};
-
-string shifr(const string &input_s, const int sdvig)
-  {
-  bool ok;
-  string output_s("");
-  for(unsigned i = 0; i < input_s.length(); i++)
-  {
-  ok = false;
-  for(int j = 0; j < Alph; j++)
-    {
-    j += sdvig;
-    while (j >= Alph) j -= Alph;
-    while (j < 0) j += Alph;
-    output_s += lett[j];
-    ok = true;
-    break;
-    }
-  }
-
-int main() // vot tut
+void f4()
 {
-SetConsoleCP(1251);
-SetConsoleOutputCP(1251);
-string s;
-
-cout << "Чтобы зашифровать строку, нажмите \"1\", если вы хотите расшифровать строку,"
- " - нажмите \"2\"";
-
-bool ok = false;
-int sdvig = 0;
-while(!ok)
- {
- switch(getch())
-  {
-  case '1':
-   {
-   cout << "Введите свдиг: " << endl;
-   cin >> sdvig;
-   cout << "Введите строку для зашифровки: " << endl;
-   while (cin >> s)
+    cin.ignore();
+    int c = 0, C = 0;
+string s, S;
+ifstream ifs("stroka_4.txt");
+ofstream ofs1("okud_4.txt");
+ofstream ofs2("gamz_4.txt");
+if (ifs.is_open() && ofs1.is_open())
+{
+    while (!ifs.eof()) // okud??
     {
-    cout << cipher(s, sdvig) << ' ';
-    if (cin.get() == '\n') break;
-    }
-   ok = true;
-   } break;
-  case '2':
-   {
-   bool Done = false;
-   cout << "\nInput string to decode: ";
-   getline(std::cin, s);
-   for (int i = 0; i < ABCSize && !Done; i++)
+        ++c;
+        getline(ifs, s);
+        
+        {
+            ofs1 << s;
+        }
+    while (!ifs.eof()) // это для gamz
     {
-    cout << "\nWith shift equal " << i << " we have such string:\n";
-    cout << cipher(s, i);
-    cout << "\nIf decoding is done, press \"1\"";
-    if (getch() == '1') Done = true;
+        ++C;
+        getline(ifs, S);
+        if (C % 2 != 0)
+        {
+            ofs2 << S;
+        }
     }
-   ok = true;
-   } break;
-    cout << "Press either \"1\" or \"2\"!";
-  }
- }
-    cout << "= " << s;
+    cout << "Преобразование выполнено. Результат находится в папке с программой." << "Нажмите Enter дважды для продолжения программы или закройте её.";
+    getch();
+    cin.clear();
+    cin.ignore();
+    }
 }
-getch();
-  }
+}
